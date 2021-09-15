@@ -2,16 +2,17 @@
 title: "Assignments"
 output:
   html_document:
-    toc: yes
-    toc_float: yes
-    collapsed: no
-    number_sections: no
+    toc: true
+    toc_float: true
+    collapsed: false
+    number_sections: false
     toc_depth: 1
-  pdf_document:
-    toc: no
-    toc_depth: '1'
+    #code_folding: hide
 ---
 
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(message=FALSE,warning=FALSE, cache=TRUE)
+```
 
 This page will contain all the assignments you submit for the class.
 
@@ -48,13 +49,15 @@ This assignment is due on Canvas on Monday 9/20 before class, at 10:15 am. Inclu
 Install the datasets package on the console below using `install.packages("datasets")`. Now load the library.
 
 ```{r}
-
+library(datasets)
 ```
 
 Load the USArrests dataset and rename it `dat`. Note that this dataset comes with R, in the package datasets, so there's no need to load data from your computer. Why is it useful to rename the dataset?
 
-```{r}
+It is useful to rename datasets because it gives us a shorthand to work with. So in this case, instead of referring to the data with "USArrests" we can ref to it with dat.
 
+```{r}
+dat <- data("USArrests")
 ```
 
 ### Problem 2
@@ -71,7 +74,7 @@ This dataset has the state names as row names, so we just want to make them into
 List the variables contained in the dataset `USArrests`.
 
 ```{r}
-
+head(dat)
 ```
 
 ### Problem 3 
@@ -143,12 +146,3 @@ What does this code do? Explain what each line is doing.
 Answer:
 
 $$\\[2in]$$
-
-
-
-
-# Assignment 2 
-
-(Coming soon)
-
-
