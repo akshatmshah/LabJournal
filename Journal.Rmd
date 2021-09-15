@@ -57,7 +57,7 @@ Load the USArrests dataset and rename it `dat`. Note that this dataset comes wit
 It is useful to rename datasets because it gives us a shorthand to work with. So in this case, instead of referring to the data with "USArrests" we can ref to it with dat.
 
 ```{r}
-dat <- data("USArrests")
+dat <- USArrests
 ```
 
 ### Problem 2
@@ -74,7 +74,7 @@ This dataset has the state names as row names, so we just want to make them into
 List the variables contained in the dataset `USArrests`.
 
 ```{r}
-head(dat)
+names(dat)
 ```
 
 ### Problem 3 

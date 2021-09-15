@@ -362,7 +362,10 @@ div.tocify {
 <div id="problem-1" class="section level3">
 <h3>Problem 1</h3>
 <p>Install the datasets package on the console below using <code>install.packages("datasets")</code>. Now load the library.</p>
+<pre class="r"><code>library(datasets)</code></pre>
 <p>Load the USArrests dataset and rename it <code>dat</code>. Note that this dataset comes with R, in the package datasets, so there’s no need to load data from your computer. Why is it useful to rename the dataset?</p>
+<p>It is useful to rename datasets because it gives us a shorthand to work with. So in this case, instead of referring to the data with “USArrests” we can ref to it with dat.</p>
+<pre class="r"><code>dat &lt;- USArrests</code></pre>
 </div>
 <div id="problem-2" class="section level3">
 <h3>Problem 2</h3>
@@ -370,6 +373,8 @@ div.tocify {
 <pre class="r"><code>dat$state &lt;- tolower(rownames(USArrests))</code></pre>
 <p>This dataset has the state names as row names, so we just want to make them into a new variable. We also make them all lower case, because that will help us draw a map later - the map function requires the states to be lower case.</p>
 <p>List the variables contained in the dataset <code>USArrests</code>.</p>
+<pre class="r"><code>names(dat)</code></pre>
+<pre><code>## [1] &quot;Murder&quot;   &quot;Assault&quot;  &quot;UrbanPop&quot; &quot;Rape&quot;</code></pre>
 </div>
 <div id="problem-3" class="section level3">
 <h3>Problem 3</h3>
