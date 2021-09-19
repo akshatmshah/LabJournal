@@ -375,34 +375,57 @@ div.tocify {
 <p>List the variables contained in the dataset <code>USArrests</code>.</p>
 <pre class="r"><code>names(dat)</code></pre>
 <pre><code>## [1] &quot;Murder&quot;   &quot;Assault&quot;  &quot;UrbanPop&quot; &quot;Rape&quot;</code></pre>
+<p>The four variables are “Murder”, “Assault”, “UrbanPop”, and “Rape”.</p>
 </div>
 <div id="problem-3" class="section level3">
 <h3>Problem 3</h3>
 <p>What type of variable (from the DVB chapter) is <code>Murder</code>?</p>
-<p>Answer:</p>
+<p>//double check this again if they are they same</p>
+<p>Answer: Categorical Variables</p>
 <p>What R Type of variable is it?</p>
-<p>Answer:</p>
+<p>Answer: Character</p>
 </div>
 <div id="problem-4" class="section level3">
 <h3>Problem 4</h3>
 <p>What information is contained in this dataset, in general? What do the numbers mean?</p>
-<p>Answer:</p>
+<p>Answer: The dataset contains information about murder, assault, and rape per some urbanpop. These numbers are giving us a relation to the number of crime in relation to some population.</p>
 </div>
 <div id="problem-5" class="section level3">
 <h3>Problem 5</h3>
 <p>Draw a histogram of <code>Murder</code> with proper labels and title.</p>
+<pre class="r"><code>hist(dat$Murder, main = &quot;Histogram of Murder&quot;, xlab = &quot;States&quot;)</code></pre>
+<p><img src="Journal_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
 </div>
 <div id="problem-6" class="section level3">
 <h3>Problem 6</h3>
 <p>Please summarize <code>Murder</code> quantitatively. What are its mean and median? What is the difference between mean and median? What is a quartile, and why do you think R gives you the 1st Qu. and 3rd Qu.?</p>
+<pre class="r"><code>  summary(dat$Murder)</code></pre>
+<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##   0.800   4.075   7.250   7.788  11.250  17.400</code></pre>
+<p>Min. 1st Qu. Median Mean 3rd Qu. Max. 0.800 4.075 7.250 7.788 11.250 17.400</p>
+<p>The mean is 7.788 and the median and 7.250. The mean is the average of the dataset while the median gives us a central value of our dataset. A quartile tells us the variability around the median. So the 1st and 3rd quartiles show us the variability before the median is reached and after the median is reached. R gives us this data to show us where it might be more or less skewed.</p>
 </div>
 <div id="problem-7" class="section level3">
 <h3>Problem 7</h3>
 <p>Repeat the same steps you followed for <code>Murder</code>, for the variables <code>Assault</code> and <code>Rape</code>. Now plot all three histograms together. You can do this by using the command <code>par(mfrow=c(3,1))</code> and then plotting each of the three.</p>
+<pre class="r"><code>summary(dat$Murder)</code></pre>
+<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##   0.800   4.075   7.250   7.788  11.250  17.400</code></pre>
+<pre class="r"><code>summary(dat$Assault)</code></pre>
+<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##    45.0   109.0   159.0   170.8   249.0   337.0</code></pre>
+<pre class="r"><code>summary(dat$Rape)</code></pre>
+<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##    7.30   15.07   20.10   21.23   26.18   46.00</code></pre>
+<pre class="r"><code>par(mfrow=c(3,1))
+hist(dat$Assault, main = &quot;Histogram of Assault&quot;, xlab = &quot;States&quot;)
+hist(dat$Murder, main = &quot;Histogram of Murder&quot;, xlab = &quot;States&quot;)
+hist(dat$Rape, main = &quot;Histogram of Murder&quot;, xlab = &quot;States&quot;)</code></pre>
+<p><img src="Journal_files/figure-html/unnamed-chunk-7-1.png" width="480" /> <em>The first summary is of murder, the second summary is of assault, and the third summary is of rape. The graphs following are the histogram.</em></p>
 <p>What does the command par do, in your own words (you can look this up by asking R <code>?par</code>)?</p>
-<p>Answer:</p>
+<p>Answer: It helps us combine multiple plots that we created into one big vertical plot.</p>
 <p>What can you learn from plotting the histograms together?</p>
-<p>Answer:</p>
+<p>Answer: We can see the correlation between the data. If there are some points where there is a peak at the same time then we can generalize and say that state could be more dangerous than others.</p>
 </div>
 <div id="problem-8" class="section level3">
 <h3>Problem 8</h3>
@@ -415,7 +438,7 @@ ggplot(dat, aes(map_id=state, fill=Murder)) +
   geom_map(map=map_data(&quot;state&quot;)) + 
   expand_limits(x=map_data(&quot;state&quot;)$long, y=map_data(&quot;state&quot;)$lat)</code></pre>
 <p>What does this code do? Explain what each line is doing.</p>
-<p>Answer:</p>
+<p>Answer: The first two lines import the libraries map and ggplot2. Line 154 imports dat wants to define the map id of states with murder. The second line is filling out map with state data.The third line maps it out in a x and y axis so we can see the data in states.</p>
 <p><span class="math display">\[\\[2in]\]</span></p>
 </div>
 </div>

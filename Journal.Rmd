@@ -73,32 +73,39 @@ This dataset has the state names as row names, so we just want to make them into
 
 List the variables contained in the dataset `USArrests`.
 
+
 ```{r}
 names(dat)
 ```
+
+
+The four variables are  "Murder", "Assault", "UrbanPop", and "Rape".
 
 ### Problem 3 
 
 What type of variable (from the DVB chapter) is `Murder`? 
 
-Answer: 
+//double check this again if they are they same
+
+Answer: Categorical Variables
 
 What R Type of variable is it?
 
-Answer:
+Answer: Character
 
 
 ### Problem 4
 
 What information is contained in this dataset, in general? What do the numbers mean? 
 
-Answer: 
+Answer: The dataset contains information about murder, assault, and rape per some urbanpop. These numbers are giving us a relation to the number of crime in relation to some population. 
 
 ### Problem 5
 
 Draw a histogram of `Murder` with proper labels and title.
 
 ```{r}
+hist(dat$Murder, main = "Histogram of Murder", xlab = "States")
 
 ```
 
@@ -107,24 +114,40 @@ Draw a histogram of `Murder` with proper labels and title.
 Please summarize `Murder` quantitatively. What are its mean and median? What is the difference between mean and median? What is a quartile, and why do you think R gives you the 1st Qu. and 3rd Qu.?
 
 ```{r}
-
+  summary(dat$Murder)
 ```
+
+ Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+  0.800   4.075   7.250   7.788  11.250  17.400 
+  
+The mean is 7.788 and the median and 7.250. The mean is the average of the dataset while the median gives us a central value of our dataset. A quartile tells us the variability around the median. So the 1st and 3rd quartiles show us the variability before the median is reached and after the median is reached. R gives us this data to show us where it might be more or less skewed.
 
 ### Problem 7
 
 Repeat the same steps you followed for `Murder`, for the variables `Assault` and `Rape`. Now plot all three histograms together. You can do this by using the command `par(mfrow=c(3,1))` and then plotting each of the three. 
 
-```{r, echo = TRUE, fig.width = 5, fig.height = 8}
 
+
+```{r, echo = TRUE, fig.width = 5, fig.height = 8}
+summary(dat$Murder)
+summary(dat$Assault)
+summary(dat$Rape)
+
+
+
+par(mfrow=c(3,1))
+hist(dat$Assault, main = "Histogram of Assault", xlab = "States")
+hist(dat$Murder, main = "Histogram of Murder", xlab = "States")
+hist(dat$Rape, main = "Histogram of Rape", xlab = "States")
 ```
 
 What does the command par do, in your own words (you can look this up by asking R `?par`)?
 
-Answer:
+Answer: It helps us combine multiple plots that we created into one big vertical plot.
 
 What can you learn from plotting the histograms together?
 
-Answer:
+Answer: We can see the correlation between the data. If there are some points where there is a peak at the same time then we can generalize and say that state could be more dangerous than others. This could work likewise for the converse situation.
   
 ### Problem 8
 
@@ -143,6 +166,6 @@ ggplot(dat, aes(map_id=state, fill=Murder)) +
 
 What does this code do? Explain what each line is doing.
 
-Answer:
+Answer: The first two lines import the libraries map and ggplot2. Line 154 imports dat wants to define the map id of states with murder. The second line is filling out map with state data.The third line maps it out in a x and y axis so we can see the data in states.
 
 $$\\[2in]$$
