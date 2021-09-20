@@ -373,17 +373,24 @@ div.tocify {
 <pre class="r"><code>dat$state &lt;- tolower(rownames(USArrests))</code></pre>
 <p>This dataset has the state names as row names, so we just want to make them into a new variable. We also make them all lower case, because that will help us draw a map later - the map function requires the states to be lower case.</p>
 <p>List the variables contained in the dataset <code>USArrests</code>.</p>
+<pre class="r"><code>summary(dat)</code></pre>
+<pre><code>##      Murder          Assault         UrbanPop          Rape      
+##  Min.   : 0.800   Min.   : 45.0   Min.   :32.00   Min.   : 7.30  
+##  1st Qu.: 4.075   1st Qu.:109.0   1st Qu.:54.50   1st Qu.:15.07  
+##  Median : 7.250   Median :159.0   Median :66.00   Median :20.10  
+##  Mean   : 7.788   Mean   :170.8   Mean   :65.54   Mean   :21.23  
+##  3rd Qu.:11.250   3rd Qu.:249.0   3rd Qu.:77.75   3rd Qu.:26.18  
+##  Max.   :17.400   Max.   :337.0   Max.   :91.00   Max.   :46.00</code></pre>
 <pre class="r"><code>names(dat)</code></pre>
 <pre><code>## [1] &quot;Murder&quot;   &quot;Assault&quot;  &quot;UrbanPop&quot; &quot;Rape&quot;</code></pre>
-<p>The four variables are “Murder”, “Assault”, “UrbanPop”, and “Rape”.</p>
+<p>The four variables are “Murder”, “Assault”, “UrbanPop”, and “Rape” (and the state variable which we created).</p>
 </div>
 <div id="problem-3" class="section level3">
 <h3>Problem 3</h3>
 <p>What type of variable (from the DVB chapter) is <code>Murder</code>?</p>
-<p>//double check this again if they are they same</p>
-<p>Answer: Categorical Variables</p>
+<p>Answer: It is a quantitative variable.</p>
 <p>What R Type of variable is it?</p>
-<p>Answer: Character</p>
+<p>Answer: This variable is a character becuase it is represented in a string format.</p>
 </div>
 <div id="problem-4" class="section level3">
 <h3>Problem 4</h3>
@@ -420,12 +427,12 @@ div.tocify {
 <pre class="r"><code>par(mfrow=c(3,1))
 hist(dat$Assault, main = &quot;Histogram of Assault&quot;, xlab = &quot;States&quot;)
 hist(dat$Murder, main = &quot;Histogram of Murder&quot;, xlab = &quot;States&quot;)
-hist(dat$Rape, main = &quot;Histogram of Murder&quot;, xlab = &quot;States&quot;)</code></pre>
-<p><img src="Journal_files/figure-html/unnamed-chunk-7-1.png" width="480" /> <em>The first summary is of murder, the second summary is of assault, and the third summary is of rape. The graphs following are the histogram.</em></p>
+hist(dat$Rape, main = &quot;Histogram of Rape&quot;, xlab = &quot;States&quot;)</code></pre>
+<p><img src="Journal_files/figure-html/unnamed-chunk-7-1.png" width="480" /></p>
 <p>What does the command par do, in your own words (you can look this up by asking R <code>?par</code>)?</p>
 <p>Answer: It helps us combine multiple plots that we created into one big vertical plot.</p>
 <p>What can you learn from plotting the histograms together?</p>
-<p>Answer: We can see the correlation between the data. If there are some points where there is a peak at the same time then we can generalize and say that state could be more dangerous than others.</p>
+<p>Answer: We can see the correlation between the data. If there are some points where there is a peak at the same time then we can generalize and say that state could be more dangerous than others. This could work likewise for the converse situation.</p>
 </div>
 <div id="problem-8" class="section level3">
 <h3>Problem 8</h3>

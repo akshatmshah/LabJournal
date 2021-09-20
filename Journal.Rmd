@@ -1,13 +1,15 @@
 ---
 title: "Assignments"
 output:
+  pdf_document:
+    toc: yes
+    toc_depth: '1'
   html_document:
-    toc: true
-    toc_float: true
-    collapsed: false
-    number_sections: false
+    toc: yes
+    toc_float: yes
+    collapsed: no
+    number_sections: no
     toc_depth: 1
-    #code_folding: hide
 ---
 
 ```{r setup, include=FALSE}
@@ -75,30 +77,29 @@ List the variables contained in the dataset `USArrests`.
 
 
 ```{r}
+summary(dat)
 names(dat)
 ```
 
 
-The four variables are  "Murder", "Assault", "UrbanPop", and "Rape".
+The four variables are  "Murder", "Assault", "UrbanPop", and "Rape" (and the state variable which we created).
 
 ### Problem 3 
 
 What type of variable (from the DVB chapter) is `Murder`? 
 
-//double check this again if they are they same
-
-Answer: Categorical Variables
+Answer: It is a quantitative variable because this variable is representing some numerical value in relation to a state.
 
 What R Type of variable is it?
 
-Answer: Character
+Answer: This variable is a character because the word murder itself is represented in a string format.
 
 
 ### Problem 4
 
 What information is contained in this dataset, in general? What do the numbers mean? 
 
-Answer: The dataset contains information about murder, assault, and rape per some urbanpop. These numbers are giving us a relation to the number of crime in relation to some population. 
+Answer: The dataset contains information about murder, assault, and rape. Additionally, it seems to give us some numbers for a states urban population to help see the relation aswell. These numbers show us the relationship with often they are occuring) of these different variables in different states. For example a number for murder is telling it there was some amount of murders within this state (and we can compare this to other states by seeing how much more or less these crimes occur in other states).  
 
 ### Problem 5
 
@@ -140,6 +141,11 @@ hist(dat$Assault, main = "Histogram of Assault", xlab = "States")
 hist(dat$Murder, main = "Histogram of Murder", xlab = "States")
 hist(dat$Rape, main = "Histogram of Rape", xlab = "States")
 ```
+
+For assaults, the mean is 170.8 and the median and 159.0. 
+
+For rapes, the mean is 21.23 and the median and 20.10. 
+
 
 What does the command par do, in your own words (you can look this up by asking R `?par`)?
 
