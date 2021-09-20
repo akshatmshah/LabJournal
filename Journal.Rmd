@@ -129,6 +129,12 @@ Repeat the same steps you followed for `Murder`, for the variables `Assault` and
 
 
 
+Answer (for data on the other two variables) :
+For assaults, the mean is 170.8 and the median and 159.0. 
+
+For rapes, the mean is 21.23 and the median and 20.10. 
+
+
 ```{r, echo = TRUE, fig.width = 5, fig.height = 8}
 summary(dat$Murder)
 summary(dat$Assault)
@@ -142,9 +148,6 @@ hist(dat$Murder, main = "Histogram of Murder", xlab = "States")
 hist(dat$Rape, main = "Histogram of Rape", xlab = "States")
 ```
 
-For assaults, the mean is 170.8 and the median and 159.0. 
-
-For rapes, the mean is 21.23 and the median and 20.10. 
 
 
 What does the command par do, in your own words (you can look this up by asking R `?par`)?
