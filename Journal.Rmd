@@ -66,7 +66,7 @@ dat <- USArrests
 
 Use this command to make the state names into a new variable called State. 
 
-```{r, eval=FALSE}
+```{r, eval=TRUE}
 dat$state <- tolower(rownames(USArrests))
 ```
 
@@ -164,7 +164,7 @@ In the console below (not in text), type `install.packages("maps")` and press En
 
 Run this code:
 
-```{r, eval = FALSE, fig.width = 7.5, fig.height = 4}
+```{r, eval = TRUE, fig.width = 7.5, fig.height = 4}
 library('maps') 
 library('ggplot2') 
 
