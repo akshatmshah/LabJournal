@@ -1,0 +1,193 @@
+---
+title: "Exam 1"
+author: "Akshat Shah"
+date: "10/04/2021"
+output: html_document
+---
+
+# Exam 1 
+
+## Instructions
+
+a. Create a folder in your computer (a good place would be under Crim 250, Exams). 
+
+b. Download the dataset from the Canvas website (fatal-police-shootings-data.csv) onto that folder, and save your Exam 1.Rmd file in the same folder.
+
+c. Download the README.md file. This is the codebook. 
+
+d. Load the data into an R data frame.
+```{r}
+dat <- read.csv(file = "Crim 250 - Exam 1/fatal-police-shootings-data.csv")
+```
+
+
+## Problem 1 (10 points)
+
+a. Describe the dataset. This is the source: https://github.com/washingtonpost/data-police-shootings . Write two sentences (max.) about this.
+
+This is a dataset that is compiled by the Washington Post of victims of fatal police shootings. At each row, we are given a victim's name and data on the situation that was at hand.
+
+b. How many observations are there in the data frame?
+```{r}
+dim((dat))
+```
+
+We know there are 6594 rows and 17 columns. We know that the number of observations are the
+number of rows. Therefore there are 6593 observations (not including the first row
+since this is the title of the columns).
+
+c. Look at the names of the variables in the data frame. Describe what "body_camera", "flee", and "armed" represent, according to the codebook. Again, only write one sentence (max) per variable.
+```{r}
+
+names(dat)
+```
+
+Body camera is a variable that is telling us if an officer was wearing a body 
+camera and if it was recording what happened.
+
+Flee is a variable that was indicating if the victim was moving away, and if they were fleeing this tells us by what method.
+
+Armed is a variable that tells if the officer believe they had some tool that could inflict damage.
+
+d. What are three weapons that you are surprised to find in the "armed" variable? Make a table of the values in "armed" to see the options.
+```{r}
+
+table(dat$armed)
+
+```
+
+I am suprised to see pen, binoculars, and contractor's level.
+
+## Problem 2 (10 points)
+
+a. Describe the age distribution of the sample. Is this what you would expect to see?
+```{r}
+hist(dat$age, main = "Histogram of Age Distribution", xlab = "Age (in years)", xlim = c(0, 100))
+```
+
+This distribution is skewed to the right. This isn't exactly what I expected,
+(I thought it would be skewed even more to the right.) because I believed that victims would
+be a lot younger.
+
+b. To understand the center of the age distribution, would you use a mean or a median, and why? Find the one you picked.
+```{r}
+summary(dat$age)
+
+```
+
+I would use mean to understand the center of the age distribution because I don't believe there are enough outliers/extremes that would skew this result substantially. The mean
+gives us an average over our data. We can see that the average age of victims for 
+police fatal shootings were 37.12 years old.
+
+c. Describe the gender distribution of the sample. Do you find this surprising?
+```{r}
+
+table(dat$gender)
+
+```
+
+Within this dataset, there are significantly more men than women (6005 more). This is not surprising because statistics have shown that men have been higher arrest rate than women. Since men have a higher arrest rate than women and more encounters with police, I expected there to be more men than women within this dataset. Additonally, there were 3 blank indexes
+for this data and it was not taken into account for the calculations above since it
+is inconclusive.
+
+
+## Problem 3 (10 points)
+
+a. How many police officers had a body camera, according to news reports? What proportion is this of all the incidents in the data? Are you surprised that it is so high or low?
+
+```{r}
+table(dat$body_camera)
+
+```
+
+Only 910 officers had a body camera according to this dataset. This means that 
+only 14% of incidents had a body camera. This is extremely suprising that is so low
+because people are losing their lives and a proportion of officers have no concrete 
+evidence of the situation due to no body camera. 
+
+b. In  how many of the incidents was the victim fleeing? What proportion is this of the total number of incidents in the data? Is this what you would expect?
+```{r}
+table(dat$flee)
+
+
+```
+
+Out of 6103 incidents that recorded something in the fleeing category, 2151 victims were 
+fleeing. This means about 35% of people who were a victim of a fatal police shooting 
+were fleeing. I suspected a larger proportion of people were fleeing, but this 
+dataset refutes that idea. Additionally, there is 491 indexes of data that are blank
+for fleeing, so this was removed from the total number of incidents and the proportion
+since it is inconclusive.
+
+
+## Problem 4 (10 points) -  Answer only one of these (a or b).
+
+a. Describe the relationship between the variables "body camera" and "flee" using a stacked barplot. What can you conclude from this relationship? 
+
+*Hint 1: The categories along the x-axis are the options for "flee", each bar contains information about whether the police officer had a body camera (vertically), and the height along the y-axis shows the frequency of that category).*
+
+*Hint 2: Also, if you are unsure about the syntax for barplot, run ?barplot in R and see some examples at the bottom of the documentation. This is usually a good way to look up the syntax of R code. You can also Google it.*
+
+
+```{r}
+
+
+
+```
+
+__Your answer here.__
+
+b. Describe the relationship between age and race by using a boxplot. What can you conclude from this relationship? 
+
+*Hint 1: The categories along the x-axis are the race categories and the height along the y-axis is age.* 
+
+*Hint 2: Also, if you are unsure about the syntax for boxplot, run ?boxplot in R and see some examples at the bottom of the documentation. This is usually a good way to look up the syntax of R code. You can also Google it.*
+
+
+```{r}
+
+boxplot(dat$age~factor(dat$race), ylab = "Age", xlab = "Race")
+
+```
+
+We see from the data that some races have a slightly lower mean age than others.
+For examples, the mean age for white people looks to be around 40, while the mean 
+age for black people seems to be about 35. Additionally, some races have a lot more
+outliers than others. For example, asian people have no outliers while black people
+have a lot of outliers. It is hard to make a concrete conclusion based on this relationship, 
+but we can observe that there are clear small differences that we can observe
+(as stated above) from the different races and their ages. Furthermore, the first category simple represent people who did not have a specified age (left blank in the dataset). I did not omit this data because I think it could still be important to see this in relation to the other
+data.
+
+
+## Extra credit (10 points)
+
+a. What does this code tell us? 
+
+```{r, eval=FALSE}
+mydates <- as.Date(dat$date)
+head(mydates)
+(mydates[length(mydates)] - mydates[1])
+```
+
+This data tells us how long it has been since the first entry within this dataset
+to the most recent entry within the dataset. We are taking the first index because
+the 0th index states the name of each column, and we are taking the last index to get the last entry. The difference is 2458 days which is about 6.7 years. This makes sense because this dataset was created in 2015 and we are about 6 and 3/4 years from this time.
+
+b. On Friday, a new report was published that was described as follows by The Guardian: "More than half of US police killings are mislabelled or not reported, study finds." Without reading this article now (due to limited time), why do you think police killings might be mislabelled or underreported?
+
+I believe this is because of bias. Police who have been apart of police killings are going 
+to defend themselves. In order to do so, they might underreport or mislabel the incident
+in order to save face and justify the actions they took. Additionally, co workers of 
+police who have been apart of such an incident may look to defend each other building
+even more of a bias.
+
+c. Regarding missing values in problem 4, do you see any? If so, do you think that's all that's missing from the data?
+
+In problem 4, there were clear missing values (race was not defined). I believe there 
+is more missing from the data. If we were to look closer into the data we can see that 
+sometimes, for example, gender isn't specified. Additionally, another data that
+has missing values is fleeing (491 are blank). 
+
+
+

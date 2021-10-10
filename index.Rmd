@@ -19,7 +19,8 @@ output: html_document
 
 # **My Lab Journal**
 
-This is a template example for lab journaling. Students in Matt Crump's Human Cognition and Performance Lab will use this template to learn R, and other things. Students can replace this text with more fun things. People not in my lab can use this too.
+Hi! My name is Akshat Shah and I am a computer science student at the University
+of Pennsylvania. This is my LabJournal and how I am learning R in CRIM250.
 
 ## How to use
 
