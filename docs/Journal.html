@@ -777,6 +777,116 @@ head(mydates)
 <li>Regarding missing values in problem 4, do you see any? If so, do you think that’s all that’s missing from the data?</li>
 </ol>
 <p>In problem 4, there were clear missing values (race was not defined). I believe there is more missing from the data. If we were to look closer into the data we can see that sometimes, for example, gender isn’t specified. Additionally, another data that has missing values is fleeing (491 are blank).</p>
+</div>
+</div>
+<div id="exam-2" class="section level1">
+<h1>Exam 2</h1>
+<div id="instructions-1" class="section level2">
+<h2>Instructions</h2>
+<ol style="list-style-type: lower-alpha">
+<li><p>Create a folder in your computer (a good place would be under Crim 250, Exams).</p></li>
+<li><p>Download the dataset from the Canvas website (sim.data.csv) onto that folder, and save your Exam 2.Rmd file in the same folder.</p></li>
+<li><p>Data description: This dataset provides (simulated) data about 200 police departments in one year. It contains information about the funding received by the department as well as incidents of police brutality. Suppose this dataset (sim.data.csv) was collected by researchers to answer this question: <strong>“Does having more funding in a police department lead to fewer incidents of police brutality?”</strong></p></li>
+<li><p>Codebook:</p></li>
+</ol>
+<ul>
+<li>funds: How much funding the police department received in that year in millions of dollars.</li>
+<li>po.brut: How many incidents of police brutality were reported by the department that year.</li>
+<li>po.dept.code: Police department code</li>
+</ul>
+</div>
+<div id="problem-1-eda-10-points" class="section level2">
+<h2>Problem 1: EDA (10 points)</h2>
+<p>Describe the dataset and variables. Perform exploratory data analysis for the two variables of interest: funds and po.brut.</p>
+<pre class="r"><code>dat &lt;- read.csv(file = &#39;sim.data.csv&#39;)
+names(dat)</code></pre>
+<pre><code>## [1] &quot;po.dept.code&quot; &quot;funds&quot;        &quot;po.brut&quot;</code></pre>
+<pre class="r"><code>summary(dat)</code></pre>
+<pre><code>##   po.dept.code        funds          po.brut     
+##  Min.   :  1.00   Min.   :21.40   Min.   : 0.00  
+##  1st Qu.: 50.75   1st Qu.:51.67   1st Qu.:14.00  
+##  Median :100.50   Median :59.75   Median :19.00  
+##  Mean   :100.50   Mean   :61.04   Mean   :18.14  
+##  3rd Qu.:150.25   3rd Qu.:72.17   3rd Qu.:22.00  
+##  Max.   :200.00   Max.   :99.70   Max.   :29.00</code></pre>
+<pre class="r"><code>dim(dat)</code></pre>
+<pre><code>## [1] 200   3</code></pre>
+<pre class="r"><code>plot(dat$funds, dat$po.brut,  main=&quot;Relationship between Police Department Funding (in millions) and Police Bruality (per year)&quot;, xlab=&quot;Amount of funding&quot;, ylab=&quot;Number of police brutality incidences per year&quot;)</code></pre>
+<p><img src="Journal_files/figure-html/unnamed-chunk-31-1.png" width="672" /></p>
+<pre class="r"><code>cor(dat$funds, dat$po.brut)</code></pre>
+<pre><code>## [1] -0.9854706</code></pre>
+<p>The dataset has three different variables consisting of the department code, funds, and police brutality. There are 200 observations of different police departments and the number of incidences where police brutality occurred. We see that on average a department gets around 61 million dollars in funding and will have about 18 incidences of police brutality that year. We can see from the graph that there is a clear decrease in the number of police brutality incidences as the amount of funding goes up. Furthermore, we can see that the correlation between these two values is a -0.98 which indicates there is a extremely strong linear relationship (in this case it is a negative one).</p>
+</div>
+<div id="problem-2-linear-regression-30-points" class="section level2">
+<h2>Problem 2: Linear regression (30 points)</h2>
+<ol style="list-style-type: lower-alpha">
+<li>Perform a simple linear regression to answer the question of interest. To do this, name your linear model “reg.output” and write the summary of the regression by using “summary(reg.output)”.</li>
+</ol>
+<pre class="r"><code># Remember to remove eval=FALSE!!
+reg.output &lt;- lm(formula = dat$po.brut ~ dat$funds, data = dat)
+summary(reg.output)</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = dat$po.brut ~ dat$funds, data = dat)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -3.9433 -0.2233  0.2544  0.5952  1.1803 
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 40.543069   0.282503  143.51   &lt;2e-16 ***
+## dat$funds   -0.367099   0.004496  -81.64   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.9464 on 198 degrees of freedom
+## Multiple R-squared:  0.9712, Adjusted R-squared:  0.971 
+## F-statistic:  6666 on 1 and 198 DF,  p-value: &lt; 2.2e-16</code></pre>
+<p><strong>Your answer here.</strong></p>
+<ol start="2" style="list-style-type: lower-alpha">
+<li>Report the estimated coefficient, standard error, and p-value of the slope. Is the relationship between funds and incidents statistically significant? Explain.</li>
+</ol>
+<p>The estimated coefficient for the slope is -0.367 while the estimated coefficient for the intercept is 40.54. The p-value for the slope is less than 2 x 10^-16 (this is the same of the intercept as well). These slope has a standard error of 0.0045 which means that regression we have is very close to the actual value. This means that there exists a linear relationship between the funds and the incidents statically as each of these p-values are less than 0.05. This means that we can reject the null hypothesis and assert that there is a linear relationship.</p>
+<ol start="3" style="list-style-type: lower-alpha">
+<li>Draw a scatterplot of po.brut (y-axis) and funds (x-axis). Right below your plot command, use abline to draw the fitted regression line, like this:</li>
+</ol>
+<pre class="r"><code># Remember to remove eval=FALSE!!
+plot(dat$funds, dat$po.brut,  main=&quot;Relationship between Police Department Funding (in millions) and Police Bruality (per year)&quot;, xlab=&quot;Amount of funding&quot;, ylab=&quot;Number of police brutality incidences per year&quot;)
+abline(reg.output, col = &quot;red&quot;, lwd=2)</code></pre>
+<p><img src="Journal_files/figure-html/unnamed-chunk-33-1.png" width="384" /> Does the line look like a good fit? Why or why not?</p>
+<p>For the middle values, the line follows the data precisely. However if we look at the the tail-end of both sides of the data we can see that it isn’t as precise anymore. I believe that this line is an okay fit given it can follow the distribution on average but when it gets to parts of the data where we do not have as much information (the tail ends), the predicted value isn’t as correct.</p>
+<ol start="4" style="list-style-type: lower-alpha">
+<li>Are the four assumptions of linear regression satisfied? To answer this, draw the relevant plots. (Write a maximum of one sentence per assumption.) If not, what might you try to do to improve this (if you had more time)?</li>
+</ol>
+<pre class="r"><code>plot(dat$funds, reg.output$residuals, main=&quot;Residuals vs. x&quot;, xlab=&quot;x, Scaled speed&quot;, ylab=&quot;Residuals&quot;)
+abline(h = 0, lty=&quot;dashed&quot;)</code></pre>
+<p><img src="Journal_files/figure-html/unnamed-chunk-34-1.png" width="672" /></p>
+<pre class="r"><code>plot(reg.output, which=1)</code></pre>
+<p><img src="Journal_files/figure-html/unnamed-chunk-34-2.png" width="672" /></p>
+<pre class="r"><code>plot(dat$funds, dat$po.brut, main=&quot;Relationship between funding and police brutality&quot;, xlab = &quot;Amount of funding&quot;, ylab = &quot;Number of police brutality incidences per year&quot;)</code></pre>
+<p><img src="Journal_files/figure-html/unnamed-chunk-34-3.png" width="672" /></p>
+<pre class="r"><code>plot(reg.output, which=3)</code></pre>
+<p><img src="Journal_files/figure-html/unnamed-chunk-34-4.png" width="672" /></p>
+<pre class="r"><code>plot(reg.output, which=5)</code></pre>
+<p><img src="Journal_files/figure-html/unnamed-chunk-34-5.png" width="672" /></p>
+<pre class="r"><code>plot(reg.output, which=2)</code></pre>
+<p><img src="Journal_files/figure-html/unnamed-chunk-34-6.png" width="672" /></p>
+<p>1.Linearly Assumption: This assumption doesn’t hold because we can clearly see that the red line for the graph on residuals vs fitted is not flat and the residuals vs x has a pattern, therefore this means there is non constant variance.</p>
+<p>2.Independence assumption : This doesn’t hold because there is a pattern in our graph for residuals vs x.</p>
+<p>3.Equal variance assumption : This assumption probably doesn’t hold because our scale-location plot isn’t straight and there is a pattern with it.</p>
+<p>4.Normal Population Assumption : When we look at our normal qq plot, we see that the there is a left skew (the left and the right ends of the tail are lighter and smaller than the normal distribution).</p>
+<p>The four assumptions were not satisfied, next time I would try and get more data or I could try and use a different model that would help us see a better relationship, if there exists one.</p>
+<ol start="5" style="list-style-type: lower-alpha">
+<li>Answer the question of interest based on your analysis.</li>
+</ol>
+<p>Because our assumptions do not hold, we can’t use this linear regression model to determine if more funding will lead to a decrease of police brutality. This means the results that we obtained to reject the null hypothesis can not be used and it is inconclusive. The results we obtained are misleading.</p>
+</div>
+<div id="problem-3-data-ethics-10-points" class="section level2">
+<h2>Problem 3: Data ethics (10 points)</h2>
+<p>Describe the dataset. Considering our lecture on data ethics, what concerns do you have about the dataset? Once you perform your analysis to answer the question of interest using this dataset, what concerns might you have about the results?</p>
+<p>This dataset gives us the funding a police department receives and the amount of police brutality that occurs. From our data ethics lecture, an issue we could come across is correlation doesn’t imply causation. So even though we have a very high correlation, this doesn’t necessary mean that the two variables are related. People could potentially look at this correlation and see the regression without realizing that our assumption didn’t hold.</p>
+<p>This matters because people could use this data or data like this to push a false narrative that could damage people. This is an important example to see that we have to check everything because if we forget and show some false information it could cause people to believe ideas that are not true.</p>
 <p><span class="math display">\[\\[2in]\]</span></p>
 </div>
 </div>
