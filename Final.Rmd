@@ -1,0 +1,144 @@
+---
+title: "Final Project"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+library(usmap)
+library(ggplot2)
+
+table12 <- read.csv(file="table12.csv")
+table11 <- read.csv(file="table11.csv")
+```
+
+## R Markdown
+
+
+```{r}
+summary(table12)
+
+table12$Number.of.participating.agencies <- 
+  as.integer(gsub(",", "", table12$Number.of.participating.agencies))
+table12$Population.covered <- 
+  as.integer(gsub(",", "", table12$Population.covered))
+table12$Total.number.of.incidents.reported <-
+  as.integer(gsub(",","",table12$Total.number.of.incidents.reported))
+
+summary(table12)
+```
+
+<First check if there is a correlation with the number of agencies participating
+and the population>
+```{r pressure, echo=FALSE}
+options(scipen=999)
+plot(table12$Population.covered, table12$Number.of.participating.agencies, 
+     xlab="Population", ylab="Number of Agencies")
+plot(table12$Population.covered, table12$Number.of.participating.agencies, 
+     xlab="Population", ylab="Number of Agencies",
+     xlim = range(0, 12000000)) 
+
+cor(table12$Population.covered, table12$Number.of.participating.agencies)
+```
+
+<See how many of agencies are submitting reports out of number submitting>
+<data shows that a very low number agencies are actually submitting reports>
+```{r}
+
+percent_participate_table <- data.frame(table12$Participating.state.Federal,
+                                  table12$Agencies.submitting.incident.reports,
+                                  table12$Number.of.participating.agencies)
+
+colnames(percent_participate_table) <- c('States', 'Agencies Submitting Reports'
+                                         , "Agencies Participating")
+
+percent_participate_table = transform(percent_participate_table, 
+                            freq = (percent_participate_table$`Agencies Submitting Reports`/percent_participate_table$`Agencies Participating`)*100)
+
+```
+
+
+
+<there is a correlation -> Lets see if we can predict the n>
+<first lets see if the number of ag>
+```{r}
+plot(table12$Number.of.participating.agencies, table12$Total.number.of.incidents.reported, 
+                                  xlab="Population", ylab="Number of Agencies")
+plot(table12$Number.of.participating.agencies, table12$Total.number.of.incidents.reported, 
+                                  xlab="Number of agencies", 
+                                  ylab="Number of incidents", 
+                                  xlim = range(0, 800))
+
+cor(table12$Number.of.participating.agencies, table12$Total.number.of.incidents.reported)
+```
+<lets see if there is an increase of agencies means an increase of reports>
+```{r}
+partagent <-table12$Number.of.participating.agencies
+reported <-table12$Total.number.of.incidents.reported
+lm_agencies_report <- lm(formula = partagent ~ reported,
+                         data = table12)
+summary(lm_agencies_report)
+```
+
+<linear regression assumptions test>
+```{r}
+
+plot(partagent, lm_agencies_report$residuals, main="Residuals vs. x", xlab="x, Scaled speed", ylab="Residuals")
+abline(h = 0, lty="dashed")
+```
+
+```{r}
+plot(lm_agencies_report, which=3)
+```
+
+```{r}
+plot(lm_agencies_report, which=5)
+plot(lm_agencies_report, which=2)
+```
+<a regression isn't valid so we can't say that for every predicted agencies that we get more reports>
+
+<now look at the number of offenses we are seeing across state lines>
+```{r}
+summary(table11)
+```
+<total offences in general looking at freq from table 12 to table 11>
+```{r}
+table11_total = data.frame(table11$Participating.state.Federal, table11$Total.offenses, percent_participate_table$freq)
+```
+
+<most common crimes per state>
+```{r}
+table11_maxperstate <- data.frame(table11$Participating.state.Federal)
+table11_maxperstate['max'] <- apply(table11[3:15], 1, max)
+table11_maxperstate['highest occuring crimes'] <- colnames(table11[3:15])[max.col(table11[3:15], ties.method = "first")]
+
+table11_total
+table11_maxperstate
+```
+
+```{r}
+incidents <- data.frame(table12$Participating.state.Federal, as.numeric(gsub(",","",table12$Total.number.of.incidents.reported)))
+colnames(incidents) <- c('state', 'Total number of incidents')
+plot_usmap(data = incidents, values = "Total number of incidents")+scale_fill_continuous(name = "Number of Incidents",low = "white", high ="darkblue", label = scales::comma) + theme(legend.position = "right")
+```
+```{r}
+percent_participate_table <- data.frame(table12$Participating.state.Federal,
+                                  table12$Agencies.submitting.incident.reports,
+                                  table12$Number.of.participating.agencies)
+
+colnames(percent_participate_table) <- c('state', 'Agencies Submitting Reports'
+                                         , "Agencies Participating")
+
+percent_participate_table = transform(percent_participate_table, freq = (percent_participate_table$`Agencies Submitting Reports`/percent_participate_table$`Agencies Participating`)*100)
+
+
+plot_usmap(data = percent_participate_table, values = "freq")+scale_fill_continuous(name = "Percent of Participating Agencies",low = "white", high ="darkblue", label = scales::comma) + theme(legend.position = "right")
+```
+
+```{r}
+
+colnames(table11_maxperstate) <- c('state', "max", "incidents")
+plot_usmap(data = table11_maxperstate, values = "incidents") + theme(legend.position = "right") + scale_fill_brewer(name = "Incidents with the highest occurrence",type = 'qual', palette = 1) 
+```
+

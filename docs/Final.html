@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Final Project</title>
+
+<script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.tab('show');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">MyLabJournal</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="Journal.html">Journal</a>
+</li>
+<li>
+  <a href="Links.html">Links</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Final Project</h1>
+
+</div>
+
+
+<div id="r-markdown" class="section level2">
+<h2>R Markdown</h2>
+<pre class="r"><code>summary(table12)</code></pre>
+<pre><code>##  Participating.state.Federal Number.of.participating.agencies
+##  Length:51                   Length:51                       
+##  Class :character            Class :character                
+##  Mode  :character            Mode  :character                
+##                                                              
+##                                                              
+##                                                              
+##  Population.covered Agencies.submitting.incident.reports
+##  Length:51          Min.   :  0.00                      
+##  Class :character   1st Qu.: 10.00                      
+##  Mode  :character   Median : 22.00                      
+##                     Mean   : 41.65                      
+##                     3rd Qu.: 50.50                      
+##                     Max.   :208.00                      
+##  Total.number.of.incidents.reported
+##  Length:51                         
+##  Class :character                  
+##  Mode  :character                  
+##                                    
+##                                    
+## </code></pre>
+<pre class="r"><code>table12$Number.of.participating.agencies &lt;- 
+  as.integer(gsub(&quot;,&quot;, &quot;&quot;, table12$Number.of.participating.agencies))
+table12$Population.covered &lt;- 
+  as.integer(gsub(&quot;,&quot;, &quot;&quot;, table12$Population.covered))
+table12$Total.number.of.incidents.reported &lt;-
+  as.integer(gsub(&quot;,&quot;,&quot;&quot;,table12$Total.number.of.incidents.reported))
+
+summary(table12)</code></pre>
+<pre><code>##  Participating.state.Federal Number.of.participating.agencies
+##  Length:51                   Min.   :   1.0                  
+##  Class :character            1st Qu.: 102.5                  
+##  Mode  :character            Median : 221.0                  
+##                              Mean   : 304.7                  
+##                              3rd Qu.: 437.5                  
+##                              Max.   :1424.0                  
+##  Population.covered Agencies.submitting.incident.reports
+##  Min.   :   85670   Min.   :  0.00                      
+##  1st Qu.: 1185942   1st Qu.: 10.00                      
+##  Median : 3643904   Median : 22.00                      
+##  Mean   : 5985965   Mean   : 41.65                      
+##  3rd Qu.: 7209156   3rd Qu.: 50.50                      
+##  Max.   :39502561   Max.   :208.00                      
+##  Total.number.of.incidents.reported
+##  Min.   :   0                      
+##  1st Qu.:  21                      
+##  Median :  65                      
+##  Mean   : 141                      
+##  3rd Qu.: 169                      
+##  Max.   :1015</code></pre>
+<p><First check if there is a correlation with the number of agencies participating
+and the population> <img src="Final_files/figure-html/pressure-1.png" width="672" /><img src="Final_files/figure-html/pressure-2.png" width="672" /></p>
+<pre><code>## [1] 0.7281031</code></pre>
+<p><See how many of agencies are submitting reports out of number submitting> <data shows that a very low number agencies are actually submitting reports></p>
+<pre class="r"><code>percent_participate_table &lt;- data.frame(table12$Participating.state.Federal,
+                                  table12$Agencies.submitting.incident.reports,
+                                  table12$Number.of.participating.agencies)
+
+colnames(percent_participate_table) &lt;- c(&#39;States&#39;, &#39;Agencies Submitting Reports&#39;
+                                         , &quot;Agencies Participating&quot;)
+
+percent_participate_table = transform(percent_participate_table, 
+                            freq = (percent_participate_table$`Agencies Submitting Reports`/percent_participate_table$`Agencies Participating`)*100)</code></pre>
+<p>&lt;there is a correlation -&gt; Lets see if we can predict the n&gt; <first lets see if the number of ag></p>
+<pre class="r"><code>plot(table12$Number.of.participating.agencies, table12$Total.number.of.incidents.reported, 
+                                  xlab=&quot;Population&quot;, ylab=&quot;Number of Agencies&quot;)</code></pre>
+<p><img src="Final_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<pre class="r"><code>plot(table12$Number.of.participating.agencies, table12$Total.number.of.incidents.reported, 
+                                  xlab=&quot;Number of agencies&quot;, 
+                                  ylab=&quot;Number of incidents&quot;, 
+                                  xlim = range(0, 800))</code></pre>
+<p><img src="Final_files/figure-html/unnamed-chunk-3-2.png" width="672" /></p>
+<pre class="r"><code>cor(table12$Number.of.participating.agencies, table12$Total.number.of.incidents.reported)</code></pre>
+<pre><code>## [1] 0.4458242</code></pre>
+<p><lets see if there is an increase of agencies means an increase of reports></p>
+<pre class="r"><code>partagent &lt;-table12$Number.of.participating.agencies
+reported &lt;-table12$Total.number.of.incidents.reported
+lm_agencies_report &lt;- lm(formula = partagent ~ reported,
+                         data = table12)
+summary(lm_agencies_report)</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = partagent ~ reported, data = table12)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -354.40 -153.95  -92.78  100.04 1183.17 
+## 
+## Coefficients:
+##             Estimate Std. Error t value  Pr(&gt;|t|)    
+## (Intercept) 214.6460    44.2994   4.845 0.0000131 ***
+## reported      0.6385     0.1831   3.486   0.00104 ** 
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 257.1 on 49 degrees of freedom
+## Multiple R-squared:  0.1988, Adjusted R-squared:  0.1824 
+## F-statistic: 12.16 on 1 and 49 DF,  p-value: 0.001043</code></pre>
+<p><linear regression assumptions test></p>
+<pre class="r"><code>plot(partagent, lm_agencies_report$residuals, main=&quot;Residuals vs. x&quot;, xlab=&quot;x, Scaled speed&quot;, ylab=&quot;Residuals&quot;)
+abline(h = 0, lty=&quot;dashed&quot;)</code></pre>
+<p><img src="Final_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<pre class="r"><code>plot(lm_agencies_report, which=3)</code></pre>
+<p><img src="Final_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<pre class="r"><code>plot(lm_agencies_report, which=5)</code></pre>
+<p><img src="Final_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<pre class="r"><code>plot(lm_agencies_report, which=2)</code></pre>
+<p><img src="Final_files/figure-html/unnamed-chunk-7-2.png" width="672" /> &lt;a regression isn’t valid so we can’t say that for every predicted agencies that we get more reports&gt;</p>
+<p><now look at the number of offenses we are seeing across state lines></p>
+<pre class="r"><code>summary(table11)</code></pre>
+<pre><code>##  Participating.state.Federal Total.offenses  
+##  Length:51                   Min.   :   0.0  
+##  Class :character            1st Qu.:  28.5  
+##  Mode  :character            Median :  82.0  
+##                              Mean   : 164.2  
+##                              3rd Qu.: 195.0  
+##                              Max.   :1221.0  
+##  Murder.and.nonnegligent.manslaughter      Rape        Aggravated.assault
+##  Min.   : 0.0000                      Min.   :0.0000   Min.   :  0.00    
+##  1st Qu.: 0.0000                      1st Qu.:0.0000   1st Qu.:  3.00    
+##  Median : 0.0000                      Median :0.0000   Median :  9.00    
+##  Mean   : 0.6471                      Mean   :0.5882   Mean   : 21.67    
+##  3rd Qu.: 0.0000                      3rd Qu.:0.0000   3rd Qu.: 22.00    
+##  Max.   :22.0000                      Max.   :8.0000   Max.   :290.00    
+##  Simple.assault    Intimidation    Human.Trafficking.Commercial.Sex.Acts
+##  Min.   :  0.00   Min.   :  0.00   Min.   :0.00000                      
+##  1st Qu.:  6.00   1st Qu.:  4.50   1st Qu.:0.00000                      
+##  Median : 18.00   Median : 17.00   Median :0.00000                      
+##  Mean   : 39.55   Mean   : 41.71   Mean   :0.05882                      
+##  3rd Qu.: 50.00   3rd Qu.: 42.00   3rd Qu.:0.00000                      
+##  Max.   :272.00   Max.   :264.00   Max.   :2.00000                      
+##      Other           Robbery          Burglary      Larceny..theft  
+##  Min.   :0.0000   Min.   : 0.000   Min.   : 0.000   Min.   : 0.000  
+##  1st Qu.:0.0000   1st Qu.: 0.000   1st Qu.: 0.000   1st Qu.: 0.000  
+##  Median :0.0000   Median : 1.000   Median : 1.000   Median : 2.000  
+##  Mean   :0.8039   Mean   : 2.451   Mean   : 2.235   Mean   : 5.529  
+##  3rd Qu.:0.5000   3rd Qu.: 2.000   3rd Qu.: 2.500   3rd Qu.: 4.500  
+##  Max.   :7.0000   Max.   :35.000   Max.   :20.000   Max.   :80.000  
+##  Motor.vehicle.theft     Arson       Destruction..damage..vandalism
+##  Min.   :0.0000      Min.   :0.000   Min.   :  0.00                
+##  1st Qu.:0.0000      1st Qu.:0.000   1st Qu.:  6.00                
+##  Median :0.0000      Median :0.000   Median : 14.00                
+##  Mean   :0.3725      Mean   :0.902   Mean   : 41.92                
+##  3rd Qu.:0.0000      3rd Qu.:1.000   3rd Qu.: 43.50                
+##  Max.   :7.0000      Max.   :9.000   Max.   :379.00                
+##     Other.1       Crimes.against.society
+##  Min.   : 0.000   Min.   : 0.000        
+##  1st Qu.: 0.000   1st Qu.: 0.000        
+##  Median : 0.000   Median : 1.000        
+##  Mean   : 1.118   Mean   : 4.627        
+##  3rd Qu.: 1.000   3rd Qu.: 5.500        
+##  Max.   :11.000   Max.   :43.000</code></pre>
+<p>&lt;total offences in general looking at freq from table 12 to table 11&gt;</p>
+<pre class="r"><code>table11_total = data.frame(table11$Participating.state.Federal, table11$Total.offenses, percent_participate_table$freq)</code></pre>
+<p><most common crimes per state></p>
+<pre class="r"><code>table11_maxperstate &lt;- data.frame(table11$Participating.state.Federal)
+table11_maxperstate[&#39;max&#39;] &lt;- apply(table11[3:15], 1, max)
+table11_maxperstate[&#39;highest occuring crimes&#39;] &lt;- colnames(table11[3:15])[max.col(table11[3:15], ties.method = &quot;first&quot;)]
+
+table11_total</code></pre>
+<pre><code>##    table11.Participating.state.Federal table11.Total.offenses
+## 1                              Alabama                      0
+## 2                               Alaska                     17
+## 3                              Arizona                    254
+## 4                             Arkansas                     10
+## 5                           California                   1221
+## 6                             Colorado                    257
+## 7                          Connecticut                     86
+## 8                             Delaware                     27
+## 9                 District of Columbia                    247
+## 10                             Florida                    131
+## 11                             Georgia                    123
+## 12                              Hawaii                     51
+## 13                               Idaho                     38
+## 14                            Illinois                     95
+## 15                             Indiana                     87
+## 16                                Iowa                     13
+## 17                              Kansas                     99
+## 18                            Kentucky                    179
+## 19                           Louisiana                     33
+## 20                               Maine                     24
+## 21                            Maryland                     18
+## 22                       Massachusetts                    441
+## 23                            Michigan                    495
+## 24                           Minnesota                    123
+## 25                         Mississippi                     15
+## 26                            Missouri                    106
+## 27                             Montana                     35
+## 28                            Nebraska                     57
+## 29                              Nevada                     53
+## 30                       New Hampshire                     17
+## 31                          New Jersey                    478
+## 32                          New Mexico                     63
+## 33                            New York                    618
+## 34                      North Carolina                    248
+## 35                        North Dakota                     20
+## 36                                Ohio                    428
+## 37                            Oklahoma                     30
+## 38                              Oregon                    205
+## 39                        Pennsylvania                     50
+## 40                        Rhode Island                     21
+## 41                      South Carolina                     82
+## 42                        South Dakota                     21
+## 43                           Tennessee                    152
+## 44                               Texas                    560
+## 45                                Utah                     34
+## 46                             Vermont                     37
+## 47                            Virginia                    185
+## 48                          Washington                    664
+## 49                       West Virginia                     36
+## 50                           Wisconsin                     83
+## 51                             Wyoming                      6
+##    percent_participate_table.freq
+## 1                        0.000000
+## 2                       15.151515
+## 3                       18.478261
+## 4                        2.158273
+## 5                       26.458616
+## 6                       22.624434
+## 7                       39.215686
+## 8                       15.873016
+## 9                      100.000000
+## 10                       7.993730
+## 11                      10.101010
+## 12                     100.000000
+## 13                       8.490566
+## 14                       3.159341
+## 15                      10.747664
+## 16                       3.252033
+## 17                      14.058355
+## 18                      16.341463
+## 19                       8.029197
+## 20                       7.462687
+## 21                       5.882353
+## 22                      23.055556
+## 23                      29.467085
+## 24                       9.234828
+## 25                      11.904762
+## 26                       4.903678
+## 27                      15.533981
+## 28                      17.692308
+## 29                      10.416667
+## 30                       7.446809
+## 31                      37.410072
+## 32                      26.086957
+## 33                      11.648746
+## 34                      24.096386
+## 35                      11.009174
+## 36                      24.319419
+## 37                       5.022831
+## 38                      22.549020
+## 39                       1.053371
+## 40                      20.833333
+## 41                       8.888889
+## 42                      10.156250
+## 43                       9.032258
+## 44                      15.769594
+## 45                      11.570248
+## 46                      19.101124
+## 47                      13.734940
+## 48                      30.434783
+## 49                       7.500000
+## 50                       9.839817
+## 51                       9.090909</code></pre>
+<pre class="r"><code>table11_maxperstate</code></pre>
+<pre><code>##    table11.Participating.state.Federal max              highest occuring crimes
+## 1                              Alabama   0 Murder.and.nonnegligent.manslaughter
+## 2                               Alaska   6                   Aggravated.assault
+## 3                              Arizona 110                         Intimidation
+## 4                             Arkansas   4                   Aggravated.assault
+## 5                           California 330       Destruction..damage..vandalism
+## 6                             Colorado  70                         Intimidation
+## 7                          Connecticut  37                         Intimidation
+## 8                             Delaware  12                         Intimidation
+## 9                 District of Columbia 113                       Simple.assault
+## 10                             Florida  43                       Simple.assault
+## 11                             Georgia  47                       Simple.assault
+## 12                              Hawaii  23                       Simple.assault
+## 13                               Idaho  14                         Intimidation
+## 14                            Illinois  39                       Simple.assault
+## 15                             Indiana  36                         Intimidation
+## 16                                Iowa   4                       Simple.assault
+## 17                              Kansas  26                         Intimidation
+## 18                            Kentucky  66                         Intimidation
+## 19                           Louisiana   9                       Simple.assault
+## 20                               Maine  17                         Intimidation
+## 21                            Maryland  12       Destruction..damage..vandalism
+## 22                       Massachusetts 169                         Intimidation
+## 23                            Michigan 152                         Intimidation
+## 24                           Minnesota  35                         Intimidation
+## 25                         Mississippi   3       Destruction..damage..vandalism
+## 26                            Missouri  33                       Simple.assault
+## 27                             Montana  14       Destruction..damage..vandalism
+## 28                            Nebraska  16                       Simple.assault
+## 29                              Nevada  15       Destruction..damage..vandalism
+## 30                       New Hampshire   7       Destruction..damage..vandalism
+## 31                          New Jersey 267       Destruction..damage..vandalism
+## 32                          New Mexico  22                       Simple.assault
+## 33                            New York 379       Destruction..damage..vandalism
+## 34                      North Carolina  91                         Intimidation
+## 35                        North Dakota   8                         Intimidation
+## 36                                Ohio 107                         Intimidation
+## 37                            Oklahoma  11       Destruction..damage..vandalism
+## 38                              Oregon  60       Destruction..damage..vandalism
+## 39                        Pennsylvania  18                         Intimidation
+## 40                        Rhode Island  11       Destruction..damage..vandalism
+## 41                      South Carolina  18                         Intimidation
+## 42                        South Dakota   9                       Simple.assault
+## 43                           Tennessee  37                       Simple.assault
+## 44                               Texas 127                       Simple.assault
+## 45                                Utah   9                   Aggravated.assault
+## 46                             Vermont  23       Destruction..damage..vandalism
+## 47                            Virginia  55                       Simple.assault
+## 48                          Washington 259                         Intimidation
+## 49                       West Virginia   8                         Intimidation
+## 50                           Wisconsin  25                       Simple.assault
+## 51                             Wyoming   2                       Simple.assault</code></pre>
+<pre class="r"><code>incidents &lt;- data.frame(table12$Participating.state.Federal, as.numeric(gsub(&quot;,&quot;,&quot;&quot;,table12$Total.number.of.incidents.reported)))
+colnames(incidents) &lt;- c(&#39;state&#39;, &#39;Total number of incidents&#39;)
+plot_usmap(data = incidents, values = &quot;Total number of incidents&quot;)+scale_fill_continuous(name = &quot;Number of Incidents&quot;,low = &quot;white&quot;, high =&quot;darkblue&quot;, label = scales::comma) + theme(legend.position = &quot;right&quot;)</code></pre>
+<p><img src="Final_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+<pre class="r"><code>percent_participate_table &lt;- data.frame(table12$Participating.state.Federal,
+                                  table12$Agencies.submitting.incident.reports,
+                                  table12$Number.of.participating.agencies)
+
+colnames(percent_participate_table) &lt;- c(&#39;state&#39;, &#39;Agencies Submitting Reports&#39;
+                                         , &quot;Agencies Participating&quot;)
+
+percent_participate_table = transform(percent_participate_table, freq = (percent_participate_table$`Agencies Submitting Reports`/percent_participate_table$`Agencies Participating`)*100)
+
+
+plot_usmap(data = percent_participate_table, values = &quot;freq&quot;)+scale_fill_continuous(name = &quot;Percent of Participating Agencies&quot;,low = &quot;white&quot;, high =&quot;darkblue&quot;, label = scales::comma) + theme(legend.position = &quot;right&quot;)</code></pre>
+<p><img src="Final_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
+<pre class="r"><code>colnames(table11_maxperstate) &lt;- c(&#39;state&#39;, &quot;max&quot;, &quot;incidents&quot;)
+plot_usmap(data = table11_maxperstate, values = &quot;incidents&quot;) + theme(legend.position = &quot;right&quot;) + scale_fill_brewer(name = &quot;Incidents with the highest occurrence&quot;,type = &#39;qual&#39;, palette = 1) </code></pre>
+<p><img src="Final_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
